@@ -15,7 +15,8 @@ class Menu extends Component {
     goToPage: React.PropTypes.func,
     activeTab: React.PropTypes.number,
     tabs: React.PropTypes.array,
-    titles: React.PropTypes.array
+    titles: React.PropTypes.array,
+    titleColor: React.PropTypes.string,
   }
 
   state: {
@@ -41,7 +42,7 @@ class Menu extends Component {
                   this.props.goToPage(i)
                 }}
               >
-                <Text style={styles.text}>{this.props.titles[i]}</Text>
+                <Text style={[styles.text, {color: this.props.titleColor ? this.props.titleColor ? "black"}]}>{this.props.titles[i]}</Text>
               </TouchableOpacity>
             )
           })}

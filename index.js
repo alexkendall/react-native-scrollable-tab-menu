@@ -97,6 +97,9 @@ const ScrollableTabView = React.createClass({
     prerenderingSiblingsNumber: PropTypes.number,
     menuImage: PropTypes.any,
     backgroundImage: PropTypes.any,
+    tabColor: PropTypes.string
+    menuTitleColor: PropTypes.string,
+    menuBackgroundColor: PropTypes.string,
   },
 
   getDefaultProps() {
@@ -296,7 +299,7 @@ const ScrollableTabView = React.createClass({
 
   renderMenu() {
     return (
-      <Menu image={this.props.menuImage}  goToPage={this.goToPage} titles={this._children().map((child) => child.props.title)} tabs={this._children().map((child) => child.props.tabLabel)}/>
+      <Menu titleColor={this.props.menuTitleColor} image={this.props.menuImage}  goToPage={this.goToPage} titles={this._children().map((child) => child.props.title)} tabs={this._children().map((child) => child.props.tabLabel)}/>
     )
   },
 
@@ -313,7 +316,7 @@ const ScrollableTabView = React.createClass({
 
   renderTabButton() {
     return (
-      <TabButton onPress={this.toggleMenu} style={{zIndex: 3, bottom: 10, left: -27.5, position: "absolute", alignItems: "center", justifyContent: "center", backgroundColor: "black"}}/>
+      <TabButton backgroundColor={this.props.tabColor} onPress={this.toggleMenu} style={{zIndex: 3, bottom: 10, left: -27.5, position: "absolute", alignItems: "center", justifyContent: "center", backgroundColor: "black"}}/>
     )
   },
 
@@ -352,16 +355,12 @@ const ScrollableTabView = React.createClass({
     }
     var zMenu: number = menuOpacity.value
     var zContent: number = 1.0 - zMenu
-    var menuBackgroundColor = this.props.menuImage ? "transparent" : "white"
-    if(this.props.backgroundImage) {
-      image = this.props.backgroundImage
-    }
     return (
       <View style={[styles.container, this.props.style, ]} onLayout={this._handleLayout}>
         <Animated.Image source={this.props.backgroundImage} style={{backgroundColor: "transparent", opacity: contentOpacity, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), opacity: 1.0, zIndex: zContent}}>
           {this.renderScrollableContent()}
         </Animated.Image>
-        <Animated.Image source={this.props.menuImage} style={{backgroundColor: menuBackgroundColor, opacity: menuOpacity, left: menuOffset, zIndex: zMenu, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), alignItems: "center", justifyContent: "center"}}>
+        <Animated.Image source={this.props.menuImage} style={{backgroundColor: this.props.menuBackgroundColor, opacity: menuOpacity, left: menuOffset, zIndex: zMenu, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), alignItems: "center", justifyContent: "center"}}>
           {this.renderMenu()}
         </Animated.Image>
         {this.renderTabButton()}
