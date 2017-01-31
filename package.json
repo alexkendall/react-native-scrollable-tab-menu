@@ -1,6 +1,6 @@
 {
   "name": "react-native-scrollable-tab-menu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "dependencies": {
     "my_dep": "^0.0.0"
