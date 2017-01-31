@@ -42,7 +42,7 @@ class Menu extends Component {
                   this.props.goToPage(i)
                 }}
               >
-                <Text style={[styles.text, {color: this.props.titleColor ? this.props.titleColor ? "black"}]}>{this.props.titles[i]}</Text>
+                <Text style={[styles.text, {color: this.props.titleColor ? this.props.titleColor : "black"}]}>{this.props.titles[i]}</Text>
               </TouchableOpacity>
             )
           })}

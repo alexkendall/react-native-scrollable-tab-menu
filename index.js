@@ -97,7 +97,7 @@ const ScrollableTabView = React.createClass({
     prerenderingSiblingsNumber: PropTypes.number,
     menuImage: PropTypes.any,
     backgroundImage: PropTypes.any,
-    tabColor: PropTypes.string
+    tabColor: PropTypes.string,
     menuTitleColor: PropTypes.string,
     menuBackgroundColor: PropTypes.string,
   },
