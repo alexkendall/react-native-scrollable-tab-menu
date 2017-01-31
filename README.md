@@ -1,4 +1,4 @@
-# ScrollableTabMenu
+# react-native-scrollable-tab-menu
 A variation of'react-native-scrollable-tab-view' with a menu interface.
 
 ##Installation
