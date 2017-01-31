@@ -22,7 +22,7 @@ class TabButton extends Component {
         style={{width: 120, height: 60, borderRadius: 30,...this.props.style}}
         onPress={this.props.onPress}
       >
-        <View style={{width: 25, backgroundColor: "white", height: 2, marginTop: 16, marginLeft: 67.5}}/>
+        <View style={{width: 25, backgroundColor: "white", height: 2, marginTop: 0, marginLeft: 67.5}}/>
           <View style={{width: 35, backgroundColor: "white", height: 2, marginTop: 6, marginLeft: 62.5}}/>
           <View style={{width: 35, backgroundColor: "white", height: 2, marginTop: 6, marginLeft: 62.5}}/>
         <View style={{width: 25, backgroundColor: "white", height: 2, marginTop: 6, marginLeft: 67.5}}/>

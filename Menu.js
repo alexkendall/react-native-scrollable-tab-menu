@@ -6,7 +6,6 @@ import {
   View,
   TouchableOpacity,
   Animated,
-  Image,
 } from 'react-native'
 let Dimensions = require('./Dimensions')
 
@@ -31,12 +30,8 @@ class Menu extends Component {
   }
 
   render() {
-    var source: any = null
-    if(this.props.image) {
-      source = image
-    }
     return (
-        <Image source={source} style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "white", alignItems: "center", justifyContent: "center"}}>
+        <View style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "transparent", alignItems: "center", justifyContent: "center"}}>
           {this.props.tabs.map((tab, i) => {
             return (
               <TouchableOpacity
@@ -50,7 +45,7 @@ class Menu extends Component {
               </TouchableOpacity>
             )
           })}
-      </Image>
+      </View>
     )
   }
 }

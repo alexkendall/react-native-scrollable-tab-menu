@@ -11,6 +11,7 @@ const {
   StyleSheet,
   InteractionManager,
   Platform,
+  Image,
 } = ReactNative;
 const TimerMixin = require('react-timer-mixin');
 
@@ -22,19 +23,23 @@ function animateClose() {
   Animated.timing(
     menuOpacity,
     {
-      toValue: 0.0
+      toValue: 0.0,
+      duration: 200,
+
     }
   ).start()
   Animated.timing(
     contentOpacity,
     {
-      toValue: 1.0
+      toValue: 1.0,
+      duration: 200,
     }
   ).start()
   Animated.timing(
     menuOffset,
     {
-      toValue: Dimensions.windowWidth()
+      toValue: Dimensions.windowWidth(),
+      duration: 200,
     }
   ).start()
 }
@@ -43,19 +48,23 @@ function animateOpen() {
   Animated.timing(
     menuOpacity,
     {
-      toValue: 1.0
+      toValue: 1.0,
+      duration: 200,
+
     }
   ).start()
   Animated.timing(
     contentOpacity,
     {
-      toValue: 0.0
+      toValue: 0.0,
+      duration: 200,
     }
   ).start()
   Animated.timing(
     menuOffset,
     {
       toValue: 0.0,
+      duration: 200,
     }
   ).start()
 }
@@ -86,7 +95,8 @@ const ScrollableTabView = React.createClass({
     scrollWithoutAnimation: PropTypes.bool,
     locked: PropTypes.bool,
     prerenderingSiblingsNumber: PropTypes.number,
-    renderMenu: PropTypes.func,
+    menuImage: PropTypes.any,
+    backgroundImage: PropTypes.any,
   },
 
   getDefaultProps() {
@@ -286,7 +296,7 @@ const ScrollableTabView = React.createClass({
 
   renderMenu() {
     return (
-      <Menu goToPage={this.goToPage} titles={this._children().map((child) => child.props.title)} tabs={this._children().map((child) => child.props.tabLabel)}/>
+      <Menu image={this.props.menuImage}  goToPage={this.goToPage} titles={this._children().map((child) => child.props.title)} tabs={this._children().map((child) => child.props.tabLabel)}/>
     )
   },
 
@@ -342,14 +352,18 @@ const ScrollableTabView = React.createClass({
     }
     var zMenu: number = menuOpacity.value
     var zContent: number = 1.0 - zMenu
+    var menuBackgroundColor = this.props.menuImage ? "transparent" : "white"
+    if(this.props.backgroundImage) {
+      image = this.props.backgroundImage
+    }
     return (
       <View style={[styles.container, this.props.style, ]} onLayout={this._handleLayout}>
-        <Animated.View style={{opacity: contentOpacity, position: "absolute", top: 0, bottom: 0, left: 0, right: 0, opacity: 1.0, zIndex: zContent, backgroundColor: "black"}}>
+        <Animated.Image source={this.props.backgroundImage} style={{backgroundColor: "transparent", opacity: contentOpacity, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), opacity: 1.0, zIndex: zContent}}>
           {this.renderScrollableContent()}
-        </Animated.View>
-        <Animated.View style={{opacity: menuOpacity, left: menuOffset, zIndex: zMenu, position: "absolute", alignItems: "center", justifyContent: "center", height: Dimensions.windowHeight(), width: Dimensions.windowWidth()}}>
+        </Animated.Image>
+        <Animated.Image source={this.props.menuImage} style={{backgroundColor: menuBackgroundColor, opacity: menuOpacity, left: menuOffset, zIndex: zMenu, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), alignItems: "center", justifyContent: "center"}}>
           {this.renderMenu()}
-        </Animated.View>
+        </Animated.Image>
         {this.renderTabButton()}
       </View>
     )
