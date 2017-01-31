@@ -14,6 +14,7 @@ const {
   Image,
 } = ReactNative;
 const TimerMixin = require('react-timer-mixin');
+import LinearGradient from 'react-native-linear-gradient'
 
 let menuOpacity = new Animated.Value(0.0)
 let menuOffset = new Animated.Value(Dimensions.windowWidth())
@@ -100,6 +101,8 @@ const ScrollableTabView = React.createClass({
     tabColor: PropTypes.string,
     menuTitleColor: PropTypes.string,
     menuBackgroundColor: PropTypes.string,
+    locations: PropTypes.array,
+    colors: PropTypes.array,
   },
 
   getDefaultProps() {
@@ -113,6 +116,8 @@ const ScrollableTabView = React.createClass({
       scrollWithoutAnimation: true,
       locked: false,
       prerenderingSiblingsNumber: 0,
+      locations: [0.0, 1.0],
+      colors: ["transparent", "transparent"],
     };
   },
 
@@ -316,7 +321,7 @@ const ScrollableTabView = React.createClass({
 
   renderTabButton() {
     return (
-      <TabButton backgroundColor={this.props.tabColor} onPress={this.toggleMenu} style={{zIndex: 3, bottom: 10, left: -27.5, position: "absolute", alignItems: "center", justifyContent: "center", backgroundColor: "black"}}/>
+      <TabButton onPress={this.toggleMenu} style={{backgroundColor:this.props.tabColor, zIndex: 3, bottom: 10, left: -27.5, position: "absolute", alignItems: "center", justifyContent: "center"}}/>
     )
   },
 
@@ -361,7 +366,9 @@ const ScrollableTabView = React.createClass({
           {this.renderScrollableContent()}
         </Animated.Image>
         <Animated.Image source={this.props.menuImage} style={{backgroundColor: this.props.menuBackgroundColor, opacity: menuOpacity, left: menuOffset, zIndex: zMenu, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), alignItems: "center", justifyContent: "center"}}>
-          {this.renderMenu()}
+          <LinearGradient style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}} colors={this.props.colors} locations={this.props.locations}>
+            {this.renderMenu()}
+          </LinearGradient>
         </Animated.Image>
         {this.renderTabButton()}
       </View>
