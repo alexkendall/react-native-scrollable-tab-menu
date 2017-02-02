@@ -14,9 +14,9 @@ class Menu extends Component {
   static propTypes: Object = {
     goToPage: React.PropTypes.func,
     activeTab: React.PropTypes.number,
-    tabs: React.PropTypes.array,
-    titles: React.PropTypes.array,
-    titleColor: React.PropTypes.string,
+    titles: React.PropTypes.array.isRequired,
+    menuFontStyle: Text.propTypes.style,
+    blendSpeed: React.PropTypes.number,
   }
 
   state: {
@@ -32,8 +32,8 @@ class Menu extends Component {
 
   render() {
     return (
-        <View style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "transparent", alignItems: "center", justifyContent: "center"}}>
-          {this.props.tabs.map((tab, i) => {
+        <View style={[{position: "absolute", top: 0, bottom: 0, left: 0, right: 0, backgroundColor: "transparent"}, this.props.style]}>
+          {this.props.titles.map((title, i) => {
             return (
               <TouchableOpacity
                 key={i + "menuItem"}
@@ -42,7 +42,7 @@ class Menu extends Component {
                   this.props.goToPage(i)
                 }}
               >
-                <Text style={[styles.text, {color: this.props.titleColor ? this.props.titleColor : "black"}]}>{this.props.titles[i]}</Text>
+                <Text style={[styles.text, this.props.menuFontStyle]}>{this.props.titles[i]}</Text>
               </TouchableOpacity>
             )
           })}

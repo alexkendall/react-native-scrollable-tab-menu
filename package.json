@@ -1,6 +1,6 @@
 {
   "name": "react-native-scrollable-tab-menu",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
   "dependencies": {
     "react-native-linear-gradient": "^2.0.0"
@@ -14,5 +14,17 @@
  },
  "dependencies": {
    "react-timer-mixin": "^0.13.3"
- }
+ },
+ "keywords": [
+   "scrollable",
+   "tab",
+   "view",
+   "tab",
+   "bar",
+   "menu",
+   "react-native",
+   "react",
+   "android",
+   "ios"
+ ]
 }

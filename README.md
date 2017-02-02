@@ -23,29 +23,39 @@ render() {
 ...
 ```
 
-##Usage With Custom Props 
+##Usage With Custom Props
 ```
 import ScrollableTabMenu from 'react-native-scrollable-tab-menu'
 ...
 render() {
   return (
-    <ScrollableTabMenu 
-      locations={[0.0, 0.5, 1.0]} 
+    <ScrollableTabMenu
+      locations={[0.0, 0.5, 1.0]}
       colors={["transparent", "white", "blue"]}  tabColor="red"
-      backgroundImage={require('../images/myImage1.png')} 
-      menuBackgroundColor={Scheme.white(1.0)} 
-      menuImage={require('../images/myImage2.png')} 
-      menuTitleColor={Scheme.navy()}
+      backgroundImage={require('../images/myImage1.png')}
+      menuBackgroundColor={Scheme.white(1.0)}
+      menuImage={require('../images/myImage2.png')}
+      menuFontStyle={{color: "red", fontSize: 20}}
+      tabColor={"gray"}
     >
-      <Component1 label={"Basketball"} key={"bb"}  title={"Basketball"}/>
-      <Component2 label={"Baseball"} key={"bs"} title={"Baseball"}/>
-      <Component3 label={"Hockey"} key={"hk"} title={"Hockey}/>
-      <Component4 label={"Football"} key={"fo"} title={"Football"}/>
-      <Component5 label={"Soccer"} key={"sc"} title={"Soccer"}/>
+      <Component1 key={"bb"}  title={"Basketball"}/>
+      <Component2 key={"bs"} title={"Baseball"}/>
+      <Component3 key={"hk"} title={"Hockey}/>
+      <Component4 key={"fo"} title={"Football"}/>
+      <Component5 key={"sc"} title={"Soccer"}/>
     </ScrollableTabMenu>
   )
 }
 ...
 ```
 
-
+##PropTypes
+menuImage: PropTypes.any,
+backgroundImage: PropTypes.any,
+tabColor: PropTypes.string,
+menuFontStyle: Text.propTypes.style,
+menuContainerStyle: View.propTypes.style,
+menuGradientlocations: PropTypes.array,
+menuGradientColors: PropTypes.array,
+blendDuration: React.PropTypes.number,
+isAnimated: React.PropTypes.bool,

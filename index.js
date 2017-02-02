@@ -12,97 +12,44 @@ const {
   InteractionManager,
   Platform,
   Image,
+  Text,
 } = ReactNative;
 const TimerMixin = require('react-timer-mixin');
 import LinearGradient from 'react-native-linear-gradient'
 
 let menuOpacity = new Animated.Value(0.0)
 let menuOffset = new Animated.Value(Dimensions.windowWidth())
-let contentOpacity = new Animated.Value(1.0)
-
-function animateClose() {
-  Animated.timing(
-    menuOpacity,
-    {
-      toValue: 0.0,
-      duration: 200,
-
-    }
-  ).start()
-  Animated.timing(
-    contentOpacity,
-    {
-      toValue: 1.0,
-      duration: 200,
-    }
-  ).start()
-  Animated.timing(
-    menuOffset,
-    {
-      toValue: Dimensions.windowWidth(),
-      duration: 200,
-    }
-  ).start()
-}
-
-function animateOpen() {
-  Animated.timing(
-    menuOpacity,
-    {
-      toValue: 1.0,
-      duration: 200,
-
-    }
-  ).start()
-  Animated.timing(
-    contentOpacity,
-    {
-      toValue: 0.0,
-      duration: 200,
-    }
-  ).start()
-  Animated.timing(
-    menuOffset,
-    {
-      toValue: 0.0,
-      duration: 200,
-    }
-  ).start()
-}
 
 const SceneComponent = require('./SceneComponent');
-const DefaultTabBar = require('./DefaultTabBar');
-const ScrollableTabBar = require('./ScrollableTabBar');
 import Menu from './Menu'
 import TabButton from './TabButton'
 import Dimensions from './Dimensions'
 
 const ScrollableTabView = React.createClass({
   mixins: [TimerMixin, ],
-  statics: {
-    DefaultTabBar,
-    ScrollableTabBar,
-  },
 
   propTypes: {
+    // props inherited from react-native-scrollable-tab-view
     tabBarPosition: PropTypes.oneOf(['top', 'bottom', 'overlayTop', 'overlayBottom', ]),
     initialPage: PropTypes.number,
     page: PropTypes.number,
     onChangeTab: PropTypes.func,
     onScroll: PropTypes.func,
-    renderTabBar: PropTypes.any,
     style: View.propTypes.style,
     contentProps: PropTypes.object,
     scrollWithoutAnimation: PropTypes.bool,
     locked: PropTypes.bool,
     prerenderingSiblingsNumber: PropTypes.number,
+    // menu specific props
     menuImage: PropTypes.any,
     backgroundImage: PropTypes.any,
     tabColor: PropTypes.string,
-    menuTitleColor: PropTypes.string,
-    menuBackgroundColor: PropTypes.string,
-    locations: PropTypes.array,
-    colors: PropTypes.array,
+    menuFontStyle: Text.propTypes.style,
+    menuContainerStyle: View.propTypes.style,
+    menuGradientlocations: PropTypes.array,
+    menuGradientColors: PropTypes.array,
+    blendDuration: React.PropTypes.number,
+    isAnimated: React.PropTypes.bool,
   },
 
   getDefaultProps() {
@@ -113,11 +60,16 @@ const ScrollableTabView = React.createClass({
       onChangeTab: () => {},
       onScroll: () => {},
       contentProps: {},
-      scrollWithoutAnimation: true,
       locked: false,
       prerenderingSiblingsNumber: 0,
-      locations: [0.0, 1.0],
-      colors: ["transparent", "transparent"],
+      menuFontStyle: {color: "black"},
+      menuContainerStyle: {backgroundColor: "white", justifyContent: "center"},
+      menuGradientlocations: [0.0, 1.0],
+      menuGradientColors: ["transparent", "transparent"],
+      isAnimated: true,
+      tabColor: "black",
+      blendDuration: 500,
+      scrollWithoutAnimation: true,
     };
   },
 
@@ -153,6 +105,42 @@ const ScrollableTabView = React.createClass({
     }
   },
 
+  animateClose() {
+    Animated.timing(
+      menuOpacity,
+      {
+        toValue: 0.0,
+        duration: this.props.blendDuration,
+
+      }
+    ).start()
+    Animated.timing(
+      menuOffset,
+      {
+        toValue: -Dimensions.windowWidth(),
+        duration: this.props.isAnimated? 200 : 0,
+      }
+    ).start()
+  },
+
+  animateOpen() {
+    Animated.timing(
+      menuOpacity,
+      {
+        toValue: 1.0,
+        duration: this.props.blendDuration,
+
+      }
+    ).start()
+    Animated.timing(
+      menuOffset,
+      {
+        toValue: 0.0,
+        duration: this.props.isAnimated? 200 : 0,
+      }
+    ).start()
+  },
+
   goToPage(pageNumber) {
     const offset = pageNumber * this.state.containerWidth;
     if (this.scrollView) {
@@ -169,17 +157,7 @@ const ScrollableTabView = React.createClass({
       open: false,
     })
 
-    animateClose()
-  },
-
-  renderTabBar(props) {
-    if (this.props.renderTabBar === false) {
-      return null;
-    } else if (this.props.renderTabBar) {
-      return React.cloneElement(this.props.renderTabBar(props), props);
-    } else {
-      return <DefaultTabBar {...props} />;
-    }
+    this.animateClose()
   },
 
   updateSceneKeys({ page, children = this.props.children, callback = () => {}, }) {
@@ -304,15 +282,15 @@ const ScrollableTabView = React.createClass({
 
   renderMenu() {
     return (
-      <Menu titleColor={this.props.menuTitleColor} image={this.props.menuImage}  goToPage={this.goToPage} titles={this._children().map((child) => child.props.title)} tabs={this._children().map((child) => child.props.tabLabel)}/>
+      <Menu style={this.props.menuContainerStyle} menuFontStyle={this.props.menuFontStyle} image={this.props.menuImage}  goToPage={this.goToPage} titles={this._children().map((child) => child.props.title)}/>
     )
   },
 
   toggleMenu() {
     if(this.state.open) {
-      animateClose()
+      this.animateClose()
     } else {
-      animateOpen()
+      this.animateOpen()
     }
     this.setState({
       open: !this.state.open
@@ -362,11 +340,11 @@ const ScrollableTabView = React.createClass({
     var zContent: number = 1.0 - zMenu
     return (
       <View style={[styles.container, this.props.style, ]} onLayout={this._handleLayout}>
-        <Animated.Image source={this.props.backgroundImage} style={{backgroundColor: "transparent", opacity: contentOpacity, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), opacity: 1.0, zIndex: zContent}}>
+        <Animated.Image source={this.props.backgroundImage} style={{backgroundColor: "transparent", opacity: 1.0, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), zIndex: zContent}}>
           {this.renderScrollableContent()}
         </Animated.Image>
-        <Animated.Image source={this.props.menuImage} style={{backgroundColor: this.props.menuBackgroundColor, opacity: menuOpacity, left: menuOffset, zIndex: zMenu, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), alignItems: "center", justifyContent: "center"}}>
-          <LinearGradient style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}} colors={this.props.colors} locations={this.props.locations}>
+        <Animated.Image source={this.props.menuImage} style={{backgroundColor: "white", opacity: menuOpacity, left: menuOffset, zIndex: zMenu, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), alignItems: "center", justifyContent: "center"}}>
+          <LinearGradient style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}} colors={this.props.menuGradientColors} locations={this.props.menuGradientlocations}>
             {this.renderMenu()}
           </LinearGradient>
         </Animated.Image>
