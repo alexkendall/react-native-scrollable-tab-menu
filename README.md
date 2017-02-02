@@ -50,12 +50,12 @@ render() {
 ```
 
 ##PropTypes
-menuImage: PropTypes.any,
-backgroundImage: PropTypes.any,
-tabColor: PropTypes.string,
-menuFontStyle: Text.propTypes.style,
-menuContainerStyle: View.propTypes.style,
-menuGradientlocations: PropTypes.array,
-menuGradientColors: PropTypes.array,
-blendDuration: React.PropTypes.number,
-isAnimated: React.PropTypes.bool,
+<b>menuImage</b> PropTypes.any<br/>
+<b>backgroundImage</b> PropTypes.any<br/>
+<b>tabColor</b> PropTypes.string<br/>
+<b>menuFontStyle</b> Text.propTypes.style<br/>
+<b>menuContainerStyle</b> View.propTypes.style<br/>
+<b>menuGradientlocations</b> PropTypes.array<br/>
+<b>menuGradientColors</b> PropTypes.array<br/>
+<b>blendDuration</b> React.PropTypes.number<br/>
+<b>isAnimated</b> React.PropTypes.bool<br/>
