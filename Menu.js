@@ -52,24 +52,12 @@ class Menu extends Component {
 }
 
 const styles: any = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
   text: {
     fontSize: 19,
-    fontFamily:"Helvetica Neue",
-    fontWeight: "300",
     backgroundColor: "transparent",
     color: "black",
     textAlign: "center"
   },
-  footer: {
-    height: 100,
-    borderTopWidth: 1,
-  }
 })
 
 
