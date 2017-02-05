@@ -46,7 +46,7 @@ const ScrollableTabView = React.createClass({
     tabColor: PropTypes.string,
     menuFontStyle: Text.propTypes.style,
     menuContainerStyle: View.propTypes.style,
-    menuGradientlocations: PropTypes.array,
+    menuGradientLocations: PropTypes.array,
     menuGradientColors: PropTypes.array,
     blendDuration: React.PropTypes.number,
     isAnimated: React.PropTypes.bool,
@@ -64,7 +64,7 @@ const ScrollableTabView = React.createClass({
       prerenderingSiblingsNumber: 0,
       menuFontStyle: {color: "black"},
       menuContainerStyle: {backgroundColor: "white", justifyContent: "center"},
-      menuGradientlocations: [0.0, 1.0],
+      menuGradientLocations: [0.0, 1.0],
       menuGradientColors: ["transparent", "transparent"],
       isAnimated: true,
       tabColor: "black",
@@ -344,7 +344,7 @@ const ScrollableTabView = React.createClass({
           {this.renderScrollableContent()}
         </Animated.Image>
         <Animated.Image source={this.props.menuImage} style={{backgroundColor: "white", opacity: menuOpacity, left: menuOffset, zIndex: zMenu, position: "absolute", width: Dimensions.windowWidth(), height: Dimensions.windowHeight(), alignItems: "center", justifyContent: "center"}}>
-          <LinearGradient style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}} colors={this.props.menuGradientColors} locations={this.props.menuGradientlocations}>
+          <LinearGradient style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}} colors={this.props.menuGradientColors} locations={this.props.menuGradientLocations}>
             {this.renderMenu()}
           </LinearGradient>
         </Animated.Image>
