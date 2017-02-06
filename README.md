@@ -1,13 +1,15 @@
 # react-native-scrollable-tab-menu
 A variation of'react-native-scrollable-tab-view' with a menu interface.
 
+<img src="https://image.ibb.co/e8rJWF/scrollable_Tab_Menu.gif" alt="Drawing" width="248px" height="441px"/>
+
 ##Installation
-1.</br>
-If your using npm : 'npm install react-native-scrollable-tab-menu'</br>
-If your using yarn: 'yarn add react-native-scrollable-tab-view'
-2.</br>
-If your using npm : 'npm install react-native-linear-gradient'</br>
-If your using yarn: 'yarn add react-native-linear-gradient'
+1.
+using npm... 'npm install react-native-scrollable-tab-menu'</br>
+using yarn... 'yarn add react-native-scrollable-tab-view'</br>
+2.
+using npm... 'npm install react-native-linear-gradient'</br>
+using yarn... 'yarn add react-native-linear-gradient'</br>
 3.
 run 'react-native-link' to link packages.
 
