@@ -24,11 +24,11 @@ import ScrollableTabMenu from 'react-native-scrollable-tab-menu'
 render() {
   return (
     <ScrollableTabMenu>
-      <Component1 label={"rook"} key={"ro"}  title={"Rook"}/>
-      <Component2 label={"bishop"} key={"bi"} title={"Bishop"}/>
-      <Component3 label={"queen"} key={"qu"} title={"Queen}/>
-      <Component4 label={"king"} key={"ki"} title={"King"}/>
-      <Component5 label={"pawn"} key={"pa"} title={"Pawn"}/>
+      <Component1 title={"Rook"}/>
+      <Component2 title={"Bishop"}/>
+      <Component3 title={"Queen}/>
+      <Component4 title={"King"}/>
+      <Component5 title={"Pawn"}/>
     </ScrollableTabMenu>
   )
 }
@@ -50,11 +50,11 @@ render() {
       menuFontStyle={{color: "red", fontSize: 20}}
       tabColor={"gray"}
     >
-      <Component1 key={"bb"}  title={"Basketball"}/>
-      <Component2 key={"bs"} title={"Baseball"}/>
-      <Component3 key={"hk"} title={"Hockey}/>
-      <Component4 key={"fo"} title={"Football"}/>
-      <Component5 key={"sc"} title={"Soccer"}/>
+      <Component1 title={"Basketball"}/>
+      <Component2 title={"Baseball"}/>
+      <Component3 title={"Hockey}/>
+      <Component4 title={"Football"}/>
+      <Component5 title={"Soccer"}/>
     </ScrollableTabMenu>
   )
 }
